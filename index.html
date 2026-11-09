@@ -1,33 +1,33 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>謝明穎LUNA - 個人簡歷</title>
+    <!-- 引入 jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         /* ==================== 基礎與通用樣式 ==================== */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0; /* 移除 body padding，改在 container 內處理 */
+            padding: 0;
             background-color: #f4f7f6;
             color: #333;
             line-height: 1.6;
-            scroll-behavior: smooth; /* 【新增】啟用 CSS 原生平滑捲動 */
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px; /* 在這裡設定內邊距 */
+            padding: 20px;
         }
 
-        /* 導航欄樣式 【新增】 */
+        /* 導航欄樣式 */
         .navbar {
-            background-color: #1e3a8a; /* 深藍色背景 */
+            background-color: #1e3a8a;
             padding: 10px 0;
-            position: sticky; /* 黏性定位，捲動時保持在頂部 */
+            position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -54,7 +54,7 @@
         }
 
         .navbar a:hover {
-            color: #a0c4ff; /* 懸停時變色 */
+            color: #a0c4ff;
         }
 
         /* 標題樣式 */
@@ -76,7 +76,7 @@
             margin-bottom: 30px;
         }
 
-        /* ==================== 1. 個人資訊區塊樣式 (Header) ==================== */
+        /* ==================== 1. 個人資訊區塊樣式 ==================== */
         .header-section {
             display: flex;
             flex-direction: column;
@@ -86,7 +86,7 @@
             background-color: #ffffff;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px; /* 增加頂部間距 */
+            margin-top: 20px;
         }
         
         @media (min-width: 600px) {
@@ -142,31 +142,30 @@
         }
         
         /* ==================== 2. 技能展示區樣式 ==================== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+        .skill-bar-container {
+            margin-bottom: 25px;
         }
-
-        .skill-item {
-            padding: 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            text-align: center;
-            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        .skill-bar-container h3 {
+            margin: 0 0 8px 0;
+            color: #1e3a8a;
+            font-size: 1.1em;
+            text-align: left !important;
         }
-
-        .skill-item:hover {
-             box-shadow: 0 8px 15px rgba(74, 144, 226, 0.3);
-             background-color: #ffffff;
+        .progress-bar {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            height: 15px;
+            overflow: hidden;
         }
-
-        .skill-item h3 {
-            color: #4a90e2;
-            margin-top: 0;
+        .progress-level {
+            height: 15px;
+            border-radius: 5px;
+            background-color: #4a90e2;
+            transition: width 1.5s ease-in-out;
         }
+        .level-70 { width: 70%; }
+        .level-75 { width: 75%; }
+        .level-90 { width: 90%; }
 
         /* ==================== 3. 經歷時間軸樣式 ==================== */
         .timeline {
@@ -228,6 +227,7 @@
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            background: #fff;
         }
 
         .project-item:hover {
@@ -237,7 +237,7 @@
         
         .project-item img {
             width: 100%;
-            min-height: 200px; 
+            height: 220px; 
             object-fit: cover;
             display: block;
         }
@@ -251,7 +251,34 @@
             margin-top: 0;
             margin-bottom: 5px;
         }
-        
+
+        /* jQuery 按鈕與收合樣式 */
+        .toggle-btn {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .toggle-btn:hover {
+            background-color: #3b82f6;
+        }
+
+        .extra-info {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #eff6ff;
+            border-left: 3px solid #3b82f6;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #1e3a8a;
+        }
     </style>
 </head>
 
@@ -267,102 +294,68 @@
 
     <div class="container">
         <header class="header-section">
-    <img src="S__4890673.jpg" alt="個人照片" class="profile-photo">
-    
-    <div class="info-details"> 
-        <h1>謝明穎</h1>
-        </div>
-</header>
+            <img src="S__4890673.jpg" alt="個人照片" class="profile-photo">
+            <div class="info-details"> 
+                <h1>謝明穎</h1>
                 <p><strong>大學生</strong></p>
-                
                 <hr style="border: 0; height: 1px; background-color: #eee; margin: 15px 0;">
-
                 <div class="contact-info">
                     <p>
-                        📧 <a href="love90422@gmail.com">love910422@gmail.com</a> 
+                        📧 <a href="mailto:love910422@gmail.com">love910422@gmail.com</a> 
                         📱 <span>+886 0958050422</span> 
-                        
-      </a>
                     </p>
                 </div>
             </div>
         </header>
 
         <main>
-            
+            <!-- 技能區塊 -->
             <section class="card-section" id="skills-section">
-    <h2 class="section-title">技能 (進度條)</h2>
-    <style>
-        /* A 版本 CSS: 進度條樣式 */
-        .skill-bar-container {
-            margin-bottom: 25px;
-        }
-        .skill-bar-container h3 {
-            margin: 0 0 8px 0;
-            color: #1e3a8a;
-            font-size: 1.1em;
-            text-align: left !important;
-        }
-        .progress-bar {
-            background-color: #e9ecef;
-            border-radius: 5px;
-            height: 15px;
-        }
-        .progress-level {
-            height: 15px;
-            border-radius: 5px;
-            background-color: #4a90e2;
-            transition: width 1.5s ease-in-out;
-            /* 這裡設定動畫的起點為 0 */
-            width: 0%; 
-        }
-        /* 實際進度 (需用 JavaScript 觸發或手動設定) */
-        .level-70 { width: 70%; }
-        .level-75 { width: 75%; }
-        .level-90 { width: 90%; }
-    </style>
+                <h2 class="section-title">技能 (進度條)</h2>
+                <div class="skills-content">
+                    <div class="skill-bar-container">
+                        <h3>時間管理 (70%)</h3> 
+                        <div class="progress-bar">
+                            <div class="progress-level level-70"></div> 
+                        </div>
+                        <p style="font-size: 0.9em; margin-top: 5px; color: #666;">高中時刻被排得滿滿當當，而大學後當時間真的掌握在自己手中，成績高低其實只有一線之隔，就是時間的運用。</p>
+                    </div>
 
-   <div class="skills-content">
-    
-    <div class="skill-bar-container">
-        <h3>時間管理 (70%)</h3> 
-        <div class="progress-bar">
-            <div class="progress-level level-70"></div> </div>
-        <p style="font-size: 0.9em; margin-top: 5px; color: #666;">高中時刻被排得滿滿當當，而大學後當時間真的掌握在自己手中，成績高低其實只有一線之隔，就是時間的運用。</p>
-    </div>
+                    <div class="skill-bar-container">
+                        <h3>自律 (75%)</h3> 
+                        <div class="progress-bar">
+                            <div class="progress-level level-75"></div> 
+                        </div>
+                        <p style="font-size: 0.9em; margin-top: 5px; color: #666;">已經過了23歲，已經是成熟的小大人了，對自己的選擇負責任，希望自己在未來的四年中可以學到很多有用的知識。</p>
+                    </div>
 
-    <div class="skill-bar-container">
-        <h3>自律 (75%)</h3> 
-        <div class="progress-bar">
-            <div class="progress-level level-75"></div> </div>
-        <p style="font-size: 0.9em; margin-top: 5px; color: #666;">已經過了23歲，已經是成熟的小大人了，對自己的選擇負責任，希望自己在未來的四年中可以學到很多有用的知識。</p>
-    </div>
-
-    <div class="skill-bar-container">
-        <h3>會生活 (90%)</h3> 
-        <div class="progress-bar">
-            <div class="progress-level level-90"></div> </div>
-        <p style="font-size: 0.9em; margin-top: 5px; color: #666;">該讀書讀書、該玩就玩，適時給自己壓力、也適時將重擔放下。希望自己可以聚焦在自己喜歡的東西上面，周遭人事物都值得我細細品味。</p>
-    </div>
-</div>
-</section>
+                    <div class="skill-bar-container">
+                        <h3>會生活 (90%)</h3> 
+                        <div class="progress-bar">
+                            <div class="progress-level level-90"></div> 
+                        </div>
+                        <p style="font-size: 0.9em; margin-top: 5px; color: #666;">該讀書讀書、該玩就玩，適時給自己壓力、也適時將重擔放下。希望自己可以聚焦在自己喜歡的東西上面，周遭人事物都值得我細細品味。</p>
+                    </div>
+                </div>
+            </section>
             
+            <!-- 經歷區塊 -->
             <section class="card-section" id="experience-section">
                 <h2 class="section-title">在學經歷 (Experience)</h2>
                 <div class="timeline">
-                    
                     <div class="timeline-item">
                         <h4>國小 ：修德國小</h4>
                         <span class="duration">（97-103）</span>
                         <ul>
                             <li>活動比賽社團樣樣來，培養興趣</li>
-</div>
+                        </ul>
+                    </div>
                     
                     <div class="timeline-item">
-                        <h4>國中:中崙國中</h4>
+                        <h4>國中：中崙國中</h4>
                         <span class="duration">（103-105）</span>
                         <ul>
-                            <li>努力讀書 </li>
+                            <li>努力讀書</li>
                             <li>閱讀大量課外書對自己未來更有幫助</li>
                         </ul>
                     </div>
@@ -375,55 +368,83 @@
                             <li>努力學習讓自己考上一所好的大學</li>
                             <li>多體驗跟同學出去玩的快樂</li>
                         </ul>
-        
                     </div>
                 </div>
             </section>
 
+            <!-- 作品集區塊 -->
             <section class="card-section" id="portfolio-section">
                 <h2 class="section-title">作品集 (Portfolio)</h2>
                 <div class="portfolio-grid">
-                    
                     <div class="project-item">
+                        <img src="S__4890687.jpg" alt="我的宅家小狗">
                         <div class="project-details">
-                            <img src="S__4890687.jpg" alt="我的宅家小狗 ">
-                            <h4>作品名稱 1："最可愛的小狗"</h4>
-                            <p>使用媒材:我家的小狗 作品描述:我家的狗狗很不喜歡出門去玩,所以每次帶他出去玩都會拍很多可愛的照片,希望他可以很快樂</p>
+                            <h4>作品 1：最可愛的小狗</h4>
+                            <p><strong>使用媒材：</strong>我家的小狗</p>
+                            <p>作品描述：我家的狗狗很不喜歡出門去玩，所以每次帶他出去玩都會拍很多可愛的照片，希望他可以很快樂。</p>
+                            <button class="toggle-btn">查看詳細故事 (jQuery)</button>
+                            <div class="extra-info">
+                                🐶 <strong>心得筆記：</strong> 這是透過 jQuery <code>slideToggle()</code> 實現的動態抽屜效果，能隨點隨開、靈活展示額外細節！
+                            </div>
                         </div>
                     </div>
 
                     <div class="project-item">
+                        <img src="S__4890684.jpg" alt="我的串珠生活">
                         <div class="project-details">
-                            <img src="S__4890684.jpg" alt="我的串珠生活">
-                            <h4>作品名稱 2："串珠生活"</h4>
-                            <p>使用媒材：珠珠作品描述：我很喜歡串珠,這是我自己手工串出來的,之前也有去擺過市集很有成就感,真的覺得很開心</p>
+                            <h4>作品 2：串珠生活</h4>
+                            <p><strong>使用媒材：</strong>手工珠珠</p>
+                            <p>作品描述：我很喜歡串珠，這是我自己手工串出來的，之前也有去擺過市集很有成就感，真的覺得很開心。</p>
+                            <button class="toggle-btn">查看詳細故事 (jQuery)</button>
+                            <div class="extra-info">
+                                ✨ <strong>市集回憶：</strong> 手作市集的經驗讓我學會設計與耐心，也體會到把作品分享給別人的快樂。
+                            </div>
                         </div>
                     </div>
 
                     <div class="project-item">
+                        <img src="S__4890685.jpg" alt="大自然的瀑布">
                         <div class="project-details">
-                            <img src="S__4890685.jpg" alt="大自然的瀑布">
-                            <h4>作品名稱 3："大自然"</h4>
-                            <p>使用媒材：大自然作品描述：這是跟男朋友一起去爬山拍到的瀑布,真的超美,不枉費我們花了這麼多力氣</p>
+                            <h4>作品 3：大自然</h4>
+                            <p><strong>使用媒材：</strong>戶外風景攝影</p>
+                            <p>作品描述：這是跟男朋友一起去爬山拍到的瀑布，真的超美，不枉費我們花了這麼多力氣。</p>
+                            <button class="toggle-btn">查看詳細故事 (jQuery)</button>
+                            <div class="extra-info">
+                                🌲 <strong>登山體悟：</strong> 大自然能洗滌平時累積的課業壓力，讓人充電後重新出發！
+                            </div>
                         </div>
                     </div>
-                    
                 </div>
             </section>
-
         </main>
     </div>
 
+    <!-- ==================== jQuery 實作功能 ==================== -->
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        $(document).ready(function() {
+            // 功能 1：jQuery 平滑捲動導航效果
+            $('.navbar a').on('click', function(e) {
+                if (this.hash !== '') {
+                    e.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top - 60
+                    }, 600);
+                }
+            });
+
+            // 功能 2：作品集卡片點擊「查看詳細故事」觸發 slideToggle 動畫
+            $('.toggle-btn').on('click', function() {
+                var $target = $(this).next('.extra-info');
+                $target.slideToggle(300);
+
+                if ($(this).text().includes('收合')) {
+                    $(this).text('查看詳細故事 (jQuery)');
+                } else {
+                    $(this).text('收合詳細故事 (jQuery)');
+                }
             });
         });
     </script>
-
 </body>
 </html>
